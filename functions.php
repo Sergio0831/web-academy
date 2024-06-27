@@ -250,10 +250,84 @@ function display_site_logo_or_name( $is_mobile = false ) {
 }
 
 // Page banner
-function page_banner( $args = null ) {
-	if ( ! $args['title'] ) {
-		$args['title'] = get_bloginfo( 'name' );
+function pageBanner( $args = NULL ) {
+
+	if ( ! isset( $args['title'] ) ) {
+		if ( get_field( 'page_banner_title' ) and ! is_archive() and ! is_home() ) {
+			$args['title'] = get_field( 'page_banner_title' );
+		} elseif ( is_home() ) {
+			$args['title'] = get_the_title( get_option( 'page_for_posts', true ) );
+		} else {
+			$args['title'] = get_the_title();
+		}
 	}
+
+	if ( ! isset( $args['photo'] ) ) {
+		if ( get_field( 'page_banner_background_image' ) and ! is_archive() and ! is_home() ) {
+			$args['photo'] = get_field( 'page_banner_background_image' )['url'];
+		} else {
+			$args['photo'] = get_theme_file_uri( '/img/page-header.webp' );
+		}
+	} ?>
+
+	<section class="container-fluid page-header"
+		style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('<?php echo $args['photo'] ?>');">
+		<div class="container">
+			<div class="d-flex flex-column justify-content-center" style="min-height: 300px">
+				<h2 class="display-4 text-white"><?php echo $args['title'] ?></h2>
+				<!-- Breadcrumbs start -->
+				<?php web_academy_breadcrumbs() ?>
+				<!-- Breadcrumbs start -->
+			</div>
+		</div>
+	</section>
+<?php }
+
+// Breadcrumbs
+function web_academy_breadcrumbs() {
+	if ( is_front_page() ) {
+		return; // Do not display breadcrumbs on the front page
+	}
+
+	echo '<nav aria-label="breadcrumb">';
+	echo '<ol class="breadcrumb">';
+
+	echo '<li class="breadcrumb-item"><a href="' . esc_url( home_url( '/' ) ) . '">Home</a></li>';
+	echo '<li><i class="fa fa-angle-double-right pt-1 px-3 text-white"></i></li>';
+
+	if ( is_home() ) {
+		echo '<li class="breadcrumb-item active" aria-current="page">' . get_the_title( get_option( 'page_for_posts', true ) ) . '</li>';
+	} elseif ( is_category() ) {
+		echo '<li class="breadcrumb-item active" aria-current="page">' . single_cat_title( '', false ) . '</li>';
+	} elseif ( is_single() ) {
+		$blog_page_id = get_option( 'page_for_posts' );
+		if ( $blog_page_id ) {
+			echo '<li class="breadcrumb-item"><a href="' . get_permalink( $blog_page_id ) . '">Blog</a></li>';
+			echo '<li><i class="fa fa-angle-double-right pt-1 px-3 text-white"></i></li>';
+		}
+		echo '<li class="breadcrumb-item active" aria-current="page">' . get_the_title() . '</li>';
+	} elseif ( is_page() ) {
+		global $post;
+		if ( $post->post_parent ) {
+			$ancestors = array_reverse( get_post_ancestors( $post->ID ) );
+			foreach ( $ancestors as $ancestor ) {
+				echo '<li class="breadcrumb-item"><a href="' . esc_url( get_permalink( $ancestor ) ) . '">' . esc_html( get_the_title( $ancestor ) ) . '</a></li>';
+				echo '<li><i class="fa fa-angle-double-right pt-1 px-3 text-white"></i></li>';
+			}
+		}
+		echo '<li class="breadcrumb-item active" aria-current="page">' . get_the_title() . '</li>';
+	} elseif ( is_search() ) {
+		echo '<li class="breadcrumb-item active" aria-current="page">Search results for: ' . get_search_query() . '</li>';
+	} elseif ( is_404() ) {
+		echo '<li class="breadcrumb-item active" aria-current="page">Error 404</li>';
+	} elseif ( is_tag() ) {
+		echo '<li class="breadcrumb-item active" aria-current="page">' . single_tag_title( '', false ) . '</li>';
+	} elseif ( get_query_var( 'paged' ) ) {
+		echo '<li class="breadcrumb-item active" aria-current="page">Page ' . get_query_var( 'paged' ) . '</li>';
+	}
+
+	echo '</ol>';
+	echo '</nav>';
 }
 
 // Search only blog posts

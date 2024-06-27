@@ -1,35 +1,9 @@
 /******* Bootstrap Theming ********/
-
-$primary: #ff6600;
-$secondary: #f2f1f8;
-$light: #ffffff;
-$dark: #44425a;
-
-$font-family-sans-serif: 'Poppins', sans-serif;
-
-$body-color: #6c6a74;
-
-$headings-color: $dark;
-
-$enable-responsive-font-sizes: true;
-
-$border-radius: 8px;
+@import 'custom';
 
 @import 'bootstrap/scss/bootstrap';
 
 /********** Custom CSS ************/
-
-// h3,
-// h4,
-// .font-weight-semi-bold {
-//   font-weight: 600 !important;
-// }
-
-// h5,
-// h6,
-// .font-weight-medium {
-//   font-weight: 500 !important;
-// }
 
 .btn-square {
   width: 36px;
@@ -147,6 +121,8 @@ $border-radius: 8px;
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+// Breadcrumbs style
 
 .cat-item img {
   transition: 0.5s;

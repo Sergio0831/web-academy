@@ -8,9 +8,10 @@
  */
 
 get_header();
+pageBanner();
 ?>
 
-<h1>Hello from single.php</h1>
+
 
 <?php
 while ( have_posts() ) {
@@ -20,5 +21,5 @@ while ( have_posts() ) {
 
 
 <?php
-get_sidebar();
+
 get_footer();

@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<ul class="list-group list-group-flush">
 				<?php foreach ( $categories as $category ) { ?>
 					<li class="list-group-item d-flex justify-content-between align-items-center px-0">
-						<a href="<?php esc_url( get_category_link( $category->term_id ) ) ?>"
+						<a href="<?php echo esc_url( get_category_link( $category->term_id ) ) ?>"
 							class="text-decoration-none h6 m-0"><?php echo esc_html( $category->name ) ?></a>
 						<span class="badge badge-primary badge-pill"><?php echo esc_html( $category->count ) ?></span>
 					</li>

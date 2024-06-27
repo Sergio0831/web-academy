@@ -454,7 +454,7 @@ h6, .h6 {
 
 .display-4 {
   font-size: 3.5rem;
-  font-weight: 300;
+  font-weight: 600;
   line-height: 1.2;
 }
 @media (max-width: 1200px) {
@@ -4385,10 +4385,10 @@ input[type=button].btn-block {
 .breadcrumb {
   display: flex;
   flex-wrap: wrap;
-  padding: 0.75rem 1rem;
-  margin-bottom: 1rem;
+  padding: 0 0;
+  margin-bottom: 0;
   list-style: none;
-  background-color: #e9ecef;
+  background-color: transparent;
   border-radius: 8px;
 }
 
@@ -4401,8 +4401,8 @@ input[type=button].btn-block {
 .breadcrumb-item + .breadcrumb-item::before {
   display: inline-block;
   padding-right: 0.5rem;
-  color: #6c757d;
-  content: "/";
+  color: #fff;
+  content: none;
 }
 .breadcrumb-item + .breadcrumb-item:hover::before {
   text-decoration: underline;
@@ -4411,7 +4411,7 @@ input[type=button].btn-block {
   text-decoration: none;
 }
 .breadcrumb-item.active {
-  color: #6c757d;
+  color: #fff;
 }
 
 .pagination {

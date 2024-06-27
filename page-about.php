@@ -4,7 +4,7 @@
 	<!-- Page Banner -->
 	<?php
 
-	get_template_part( "template-parts/components/banner" );
+	pageBanner();
 	?>
 
 	<!-- About Start -->
